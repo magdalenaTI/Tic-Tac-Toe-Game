@@ -7,7 +7,6 @@ def index(request):
     if request.method == "GET" :
         return render(request, "index.html")
     elif request.method == "POST":
-        print(request.POST)
         roomId = request.POST.get("room-id", None)
         playerName = request.POST.get("player-name", "Unknown")
         if(roomId):
@@ -23,4 +22,10 @@ def index(request):
 
 
 def game(request, id=None, name=None):
-    return render(request, "game.html")
+    try:
+        room = Room.objects.get(id=id)
+        return render(request, "game.html", {"rood": room, "name": name})
+    except Room.DoesNotExist:
+        messages.error(request, "Room does not exist")
+        return redirect("/")
+    
