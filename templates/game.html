@@ -8,7 +8,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@500&display=swap" rel="stylesheet" />
-    <title>Game</title>
+    <title>Room {{room.id}} | Game</title>
     <style>
         * {
             font-family: "Roboto", sans-serif;
@@ -127,7 +127,7 @@
 
     <script>
 
-         let board = {
+        let board = {
         0: '', 1: '', 2: '',
         3: '', 4: '', 5: '',
         6: '', 7: '', 8: '',
@@ -152,9 +152,9 @@
             })            
         })
 
-        function addPlayerLetter(element) {
+        function addPlayerLetter(element, player=playerLetter) {
             element.innerHTML = `<p class="player-letter" >${playerLetter}</p>`
-            element.setAttribute("player", playerLetter)
+            element.setAttribute("player", player)
             setTimeout(() => {
                 element.children[0].classList.add("active")
             }, 1);
@@ -176,8 +176,8 @@
             })
         }
 
-        const ws = new WebSocket("ws://${window.location.host}/ws/game/{{room.id}}/")
-        <!--const ws = new WebSocket("ws://127.0.0.1:8000/ws/game/{{room.id}}/")-->
+    
+        const ws = new WebSocket("ws://127.0.0.1:8000/ws/game/{{room.id}}/")
 
         ws.onopen = ws_open => {
             console.log(ws_open)
@@ -189,7 +189,7 @@
             if(data.event == "show_error"){
                 Swal.fire({
                     icon: 'error',
-                    title: data.error
+                    title: data.error,
                 }).then(ws_mess => window.location = '/')
             }
             else if(data.event == "game_start"){

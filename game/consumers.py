@@ -25,7 +25,7 @@ class GameConsumer(AsyncJsonWebsocketConsumer):
                     "event": "show_error",
                     "error": "Fool room"
                 })
-                return await self.close(1000)
+                return await self.close(1)
         
         await self.accept()
         await self.channel_layer.group_add(self.group_name, self.channel_name)
@@ -100,7 +100,7 @@ class GameConsumer(AsyncJsonWebsocketConsumer):
                     })       
     
     async def disconnect(self, code):
-        if(code==1000):
+        if(code==1):
             return 
         await self.channel_layer.group_discard(self.group_name, self.channel_name)
         await self.channel_layer.group_send(self.group_name, {

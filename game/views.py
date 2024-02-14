@@ -1,10 +1,10 @@
 from django.shortcuts import render, HttpResponse, redirect
-from game.models import Room
+from game.models import *
 from django.contrib import messages
 
 # Create your views here.
 def index(request):
-    if request.method == "GET" :
+    if request.method == "GET":
         return render(request, "index.html")
     elif request.method == "POST":
         roomId = request.POST.get("room-id", None)
@@ -24,7 +24,7 @@ def index(request):
 def game(request, id=None, name=None):
     try:
         room = Room.objects.get(id=id)
-        return render(request, "game.html", {"rood": room, "name": name})
+        return render(request, "game.html", {"room": room, "name": name})
     except Room.DoesNotExist:
         messages.error(request, "Room does not exist")
         return redirect("/")
