@@ -114,3 +114,5 @@ class GameConsumer(AsyncJsonWebsocketConsumer):
         
     async def gameData_send(self, context):
         await self.send_json(context['data'])
+
+    
