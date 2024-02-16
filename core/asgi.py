@@ -21,7 +21,8 @@ application = get_asgi_application()
 application = ProtocolTypeRouter({
     "http": get_asgi_application(),
     "websocket": URLRouter([
-        path("ws/game/<int:id>/", GameConsumer.as_asgi())
+        path("ws/game/<int:id>/", GameConsumer.as_asgi()),
+        path("ws/gameAI/", Player.as_asgi())
     ])
 
 })

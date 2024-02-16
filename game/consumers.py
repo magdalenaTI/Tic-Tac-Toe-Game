@@ -115,4 +115,14 @@ class GameConsumer(AsyncJsonWebsocketConsumer):
     async def gameData_send(self, context):
         await self.send_json(context['data'])
 
-    
+
+class Player(AsyncJsonWebsocketConsumer):
+    # async def __init__(self, symbol):
+    #     self.symbol = symbol 
+
+    async def make_move(self, board, index):
+        if board[index] == '-':
+            board[index] = self.symbol
+            return True  # Move successfully made
+        else:
+            return False  # Move not allowed, cell already occupied

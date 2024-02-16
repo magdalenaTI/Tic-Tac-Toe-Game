@@ -112,6 +112,7 @@
             <input type="number" name="room-id" id="room-id" placeholder="Enter Room Code (If You Have)">
             <input type="text" name="player-name" id="player-name" placeholder="Enter Your Name">
             <button id="actionBtn">Create New Room</button>
+            <button id="actionBtn">Play with AI</button>
         </form>
     </div>
 
@@ -127,6 +128,24 @@
         })        
     </script>
 
+<!-- <script>
+    document.getElementById("actionBtn").addEventListener("click", function() {
+        // Send a POST request to the server
+        fetch('/ai_move/', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': '{{ csrf_token }}'  // Ensure CSRF token is included
+            },
+            body: JSON.stringify({})  // Add any data you want to send
+        }).then(function(response) {
+            // Redirect to the gameAI view
+            window.location.href = '/gameAI/';
+        }).catch(function(error) {
+            console.error('Error:', error);
+        });
+    });
+</script> -->
 
 </body>
 
